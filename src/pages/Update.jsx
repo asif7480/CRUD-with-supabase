@@ -55,19 +55,19 @@ function Update() {
   }
   return (
     <>
-        <h2>Update product</h2>
-        <form onSubmit={updateProduct}>
-            <div>
-                <input type="text" name="title" value={productDetail.title} onChange={handleChange}/>
+        <h2 className="text-3xl my-10 text-center">Update product</h2>
+        <form onSubmit={updateProduct} className='w-2/4 mx-auto py-5 px-5'>
+            <div className='mb-5'>
+                <input className='w-full py-3 px-4 rounded outline-none border-2 border-primary' type="text" name="title" value={productDetail.title} onChange={handleChange}/>
             </div>
-            <div>
-                <input type="text" name="price" value={productDetail.price} onChange={handleChange}/>
+            <div className='mb-5'>
+                <input className='w-full py-3 px-4 rounded outline-none border-2 border-primary' type="text" name="price" value={productDetail.price} onChange={handleChange}/>
             </div>
-            <div>
-                <input type="text" name="description" value={productDetail.description} onChange={handleChange}/>
+            <div className='mb-5'>
+                <input className='w-full py-3 px-4 rounded outline-none border-2 border-primary' type="text" name="description" value={productDetail.description} onChange={handleChange}/>
             </div>
-            <div>
-                <button>Update</button>
+            <div className='flex justify-center'>
+                <button className='bg-primary py-2 px-10 rounded cursor-pointer'>Update</button>
             </div>
         </form>
 

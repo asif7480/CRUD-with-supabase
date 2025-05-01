@@ -2,18 +2,14 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom"
 import Home from "./pages/Home"
 import Create from "./pages/Create"
 import Update from "./pages/Update"
+import Navbar from "./components/Navbar"
 
 function App() {
 
   return (
     <>
       <BrowserRouter>
-        <nav>
-          <h1>CRUD app</h1>
-          <Link to={`/`}>Home</Link>
-          <Link to={`/Create`}>Create</Link>
-        </nav>
-
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/create" element={<Create />} />

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { supabase } from "../config/SupabaseClient"
 import { Link } from "react-router-dom"
+import Table from "../components/Table"
 
 function Home() {
   const [fetchError, setFetchError] = useState(null)
@@ -23,14 +24,16 @@ function Home() {
   }
 
   const handleDelete = async (id) => {
-    const { data, error } = await supabase.from("products").delete().eq("id", id)
+    let confirm = window.confirm("Are you sure you want to delete.")
+    if(confirm){
+        const { data, error } = await supabase.from("products").delete().eq("id", id)
 
-    if(error) console.log(error);
+        if(error) console.log(error);
+    
+        if(data) console.log(data);
+        setProducts(products.filter( (product) => product.id !== id))
+    }
 
-    if(data) console.log(data);
-    setProducts(products.filter( (product) => product.id !== id))
-    
-    
   }
 
   useEffect( () => {
@@ -40,39 +43,15 @@ function Home() {
 
   return (
     <>
-        <h2>Home page</h2>
+        <h2 className="text-3xl my-10 text-center">Home page</h2>
         {
             fetchError ? 
-                <h1>{fetchError}</h1> 
+                <h1 className="my-10 text-center">{fetchError}</h1> 
                 :(
-                    <table border={1}>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Price</th>
-                            <th>Description</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-        
-                    <tbody>
-                        {
-                            products.length !== 0 && products.map( (product, index) => (
-                                <tr key={index}>
-                                    <td>{product.id}</td>
-                                    <td>{product.title}</td>
-                                    <td>{product.price}</td>
-                                    <td>{product.description}</td>
-                                    <td>
-                                        <Link to={`/${product.id}`}>Update</Link>
-                                        <button onClick={() => handleDelete(product.id)}>Delete</button>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-                </table>
+                    <div className="flex justify-center overflow-x-auto">
+                        <Table products={products} handleDelete={handleDelete}/>
+                    </div>
+
                 )
         }
 
