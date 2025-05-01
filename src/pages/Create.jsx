@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { supabase } from '../config/SupabaseClient'
 import { useNavigate } from 'react-router-dom'
+import { useProduct } from '../contexts/ProductContext'
 
 function Create() {
+  const { addNewProduct } = useProduct()
   const [productDetail, setProductDetail] = useState({
     title: "",
     price: "",
@@ -21,20 +22,9 @@ function Create() {
       return
     }
 
-    // console.log(productDetail);
+    addNewProduct(productDetail)
+    navigate("/")
     
-    const {data, error} = await supabase.from("products").insert([productDetail]).select()
-  
-    if(error){
-      console.log(error);
-      setFormError("Error in adding product.")
-    }
-
-    if(data){
-      console.log(data)
-      setFormError(null)
-      navigate("/")
-    }
   }
   return (
     <>

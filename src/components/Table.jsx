@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useProduct } from '../contexts/ProductContext'
 
-const Table = ({ products, handleDelete }) => {
+const Table = ({ products }) => {
+  const { handleDelete } = useProduct()
   return (
     <>
          <table className="md:w-2/3">
